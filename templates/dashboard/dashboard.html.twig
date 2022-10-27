@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    Breadcrumbs: {{ knp_menu_render('breadcrumbs_dashboard') }}
+    <h1>Dashboard page</h1>
+    {% if dash|length > 0 %}
+    From: {{ from|date("m/d/Y") }}
+    To: {{ to|date("m/d/Y") }}
+    <div>
+        {% if maxDate is not null %}
+            Value for MAX data filter: {{ maxDate|date("m/d/Y")  }}
+        {% else %}
+            Do not show MAX date filter
+        {% endif %}
+    </div>
+    <div>
+        <h4>Top Graph data</h4>
+        {% for date, value in dash.total.value.graph %}
+            <li>{{ date }}: {{ value}}</li>
+        {% endfor %}
+    </div>
+    <div>
+        Net Worth: {{ dash.total.value.current }}
+    </div>
+    <div>
+        Return: ${{ dash.total.value.change.amount }}, {{ dash.total.value.change.percent }}%
+    </div>
+    <div>
+        Assets: ${{ dash.assets.value.current   }}
+        Liabilities: ${{ dash.liabilities.value.current  }}
+    </div>
+    <div>
+        Asset Allocation:
+        {% for assetTypeTracker in dash.root_types %}
+            <div>
+                <div>
+                    <a href="{{ path('groshy_frontend_assettype_assets', {'slug': assetTypeTracker.trackable.id })}}">{{ assetTypeTracker.trackable.name }}</a>
+                </div>
+                <div>{{ assetTypeTracker.value.current }}</div>
+                <div>{{ assetTypeTracker.value.change.amount }}</div>
+                <div>{{ assetTypeTracker.value.change.percent }}</div>
+                <div>{{ assetTypeTracker.allocation.current }}</div>
+                <div>{{ assetTypeTracker.allocation.change.percent }}</div>
+                <div>
+                    {% for date, value in assetTypeTracker.allocation.graph %}
+                        <li>{{ date }}: {{ value}}</li>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        Real Estate
+    </div>
+    <div>
+        Last investments
+        {% for position in positions %}
+            <div>{{ position.asset.name }}</div>
+            <div>{{ position.startDate|date("m/d/Y") }}</div>
+            <div>{{ position.data.capitalCommitment }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        Last transactions
+        {% for transaction in transactions %}
+            <div>{{ transaction.position.asset.name }}</div>
+            <div>{{ transaction.valueDate|date("m/d/Y") }}</div>
+            <div>{{ transaction.value }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        Top Sponsors
+        {% for sponsor in sponsors %}
+            <div>{{ sponsor.name }}</div>
+            <div>{{ sponsor.total }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        Years
+        {% for year in years %}
+            <div>{{ year.year }}</div>
+            <div>{{ year.total }}</div>
+        {% endfor %}
+    </div>
+    {% else %}
+        Empty Dashboard page
+    {% endif %}
+
+{% endblock %}

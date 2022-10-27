@@ -1,0 +1,46 @@
+Right Panel for equity positions
+<table width="100%" border="1">
+    <tr>
+        <td colspan="2">Return: ${{ dash.total.value.change.amount }}, {{ dash.total.value.change.percent }}%</td>
+    </tr>
+    <tr>
+        <td>Capital Commitment</td>
+        <td>{{ dash.position_total.capital_committed }}</td>
+    </tr>
+    <tr>
+        <td>Called Capital</td>
+        <td>{{ dash.position_total.capital_called }}({{ dash.position_total.capital_called_percent }}%)</td>
+    </tr>
+    <tr>
+        <td>Distributions</td>
+        <td>{{ dash.position_total.distribution }}</td>
+    </tr>
+    <tr>
+        <td>Unrealized Multiple on Invested Capital</td>
+        <td>{{ dash.position_total.unrealized_multiple }}</td>
+    </tr>
+    {% if position.asset.data.term is not null or position.asset.data.isEvergreen %}
+    <tr>
+        <td>Term </td>
+        <td>
+            {% if position.asset.data.isEvergreen %}
+                Evergreen
+            {% else %}
+                {{ position.asset.data.term }} years
+            {% endif %}
+        </td>
+    </tr>
+    {% endif %}
+    {% if position.asset.data.irr is not null %}
+        <tr>
+            <td>Projected IRR</td>
+            <td>{{ position.asset.data.irr }}</td>
+        </tr>
+    {% endif %}
+    {% if position.asset.data.multiple is not null %}
+        <tr>
+            <td>Projected Multiple</td>
+            <td>{{ position.asset.data.multiple }}</td>
+        </tr>
+    {% endif %}
+</table>

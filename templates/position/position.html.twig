@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% set menuItem = knp_menu_get('breadcrumbs_position', [], {'position': position}) %}
+    Breadcrumbs: {{ knp_menu_render(menuItem) }}
+    <h1>Asset: {{ position.asset.name }}</h1>
+    From: {{ from|date("m/d/Y") }}
+    To: {{ to|date("m/d/Y") }}
+    <div>
+        {% if maxDate is not null %}
+            Value for MAX data filter: {{ maxDate|date("m/d/Y")  }}
+        {% else %}
+            Do not show MAX date filter
+        {% endif %}
+    </div>
+    <div>
+        <h4>Top Graph data</h4>
+        {% for date, value in dash.total.value.graph %}
+            <li>{{ date }}: {{ value}}</li>
+        {% endfor %}
+    </div>
+    <div>
+        Net Value: {{ dash.total.value.current }}
+    </div>
+    <div>
+        {% include config.positionRightPanelTemplate with {'dash': dash, 'position': position} %}
+    </div>
+    <div>
+        {% for transaction in transactions.currentPageResults %}
+            <div>
+                {{ transaction.valueDate|date("m/d/Y") }}
+                {{ transaction.value }}
+                {{ transaction.type.value }}
+                {{ transaction.notes }}
+            </div>
+        {% endfor %}
+        <!-- some views are available at https://www.babdev.com/open-source/packages/pagerfantabundle/docs/3.x/views -->
+        {{ pagerfanta(transactions) }}
+    </div>
+{% endblock %}

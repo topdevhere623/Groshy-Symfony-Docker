@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% set menuItem = knp_menu_get('breadcrumbs_asset_type', [], {'type': assetType}) %}
+    Breadcrumbs: {{ knp_menu_render(menuItem) }}
+    <h1>Asset: {{ assetType.name }}</h1>
+    From: {{ from|date("m/d/Y") }}
+    To: {{ to|date("m/d/Y") }}
+    <div>
+        {% if maxDate is not null %}
+            Value for MAX data filter: {{ maxDate|date("m/d/Y")  }}
+        {% else %}
+            Do not show MAX date filter
+        {% endif %}
+    </div>
+    <div>
+        <h4>Top Graph data</h4>
+        Net Value: {{ dash.total.value.current }}
+        {% for date, value in dash.total.value.graph %}
+            <li>{{ date }}: {{ value}}</li>
+        {% endfor %}
+    </div>
+    <div>
+        Net Value: {{ dash.total.value.current }}
+    </div>
+    <div>
+        {% include config.typeRightPanelTemplate with {'dash': dash} %}
+    </div>
+    {% if assetType.children|length > 0 %}
+    <div>
+        Asset Allocation:
+        <table width="100%" border="1">
+            <tr>
+                <td>Asset Type</td>
+                <td>Current Value</td>
+                <td>Return for a period</td>
+                <td>Allocation</td>
+            </tr>
+        {% for assetTypeTracker in dash.types %}
+            <tr>
+                <td><a href="{{ path('groshy_frontend_assettype_assets', {'slug': assetTypeTracker.trackable.id })}}">{{ assetTypeTracker.trackable.name }}</a></td>
+                <td>{{ assetTypeTracker.value.current }}</td>
+                <td>
+                    <div>{{ assetTypeTracker.value.change.amount }}</div>
+                    <div>{{ assetTypeTracker.value.change.percent }}</div>
+                </td>
+                <td>
+                    <div>{{ assetTypeTracker.allocation.current }}</div>
+                    <div>{{ assetTypeTracker.allocation.change.percent }}</div>
+                    <div>
+                        {% for date, value in assetTypeTracker.allocation.graph %}
+                            <li>{{ date }}: {{ value}}</li>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% include config.typePositionsTemplate with {'dash': dash} %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ form_start(form, { 'action': path('groshy_frontend_user_profile'), 'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_widget(form) }}
+<div>
+    <input type="submit" value="Submit" />
+</div>
+{{ form_end(form) }}
+{% endblock %}

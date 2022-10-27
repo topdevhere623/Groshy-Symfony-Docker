@@ -1,0 +1,34 @@
+{% if dash.positions|length > 0  %}
+    <div>
+        Investments:
+        <table width="100%" border="1">
+            <tr>
+                <td>Name</td>
+                <td>Current Value</td>
+                <td>Return For Period</td>
+                <td>Allocation</td>
+            </tr>
+            {% for assetPosTracker in dash.positions %}
+                <tr>
+                    <td>
+                        <a href="{{ path('groshy_frontend_position_position', {'uuid': assetPosTracker.trackable.id })}}">
+                            {{ assetPosTracker.trackable.name }}
+                        </a>
+                    </td>
+                    <td>{{ assetPosTracker.value.current }}</td>
+                    <td>
+                        <div>{{ assetPosTracker.value.change.amount }}</div>
+                        <div>{{ assetPosTracker.value.change.percent }}</div>
+                    </td>
+                    <td>
+                        <div>
+                            {% for date, value in assetPosTracker.allocation.graph %}
+                                <li>{{ date }}: {{ value}}</li>
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}

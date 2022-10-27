@@ -1,0 +1,42 @@
+Right Panel for equity
+<table width="100%" border="1">
+    <tr>
+        <td colspan="2">Return: ${{ dash.total.value.change.amount }}, {{ dash.total.value.change.percent }}%</td>
+    </tr>
+    <tr>
+        <td>Total number of investments</td>
+        <td>{{ dash.position_total.count_total }}</td>
+    </tr>
+    <tr>
+        <td>Active investments</td>
+        <td>{{ dash.position_total.count_active }}</td>
+    </tr>
+    <tr>
+        <td>Completed investments</td>
+        <td>{{ dash.position_total.count_completed }}</td>
+    </tr>
+    <tr>
+        <td>New investments</td>
+        <td>{{ dash.position_total.count_new }}</td>
+    </tr>
+    <tr>
+        <td>Capital commitment</td>
+        <td>{{ dash.position_total.capital_committed }}</td>
+    </tr>
+    <tr>
+        <td>Called capital</td>
+        <td>{{ dash.position_total.capital_called }}({{ dash.position_total.capital_called_percent }}%)</td>
+    </tr>
+    <tr>
+        <td>Distributions</td>
+        <td>{{ dash.position_total.distribution }}</td>
+    </tr>
+    <tr>
+        <td>Unrealized multiple on invested capital</td>
+        <td>{{ dash.position_total.unrealized_multiple }}</td>
+    </tr>
+{#    <tr>#}
+{#        <td>IRR <small>IRR calculation is based on past cash flow events and the investment unrealized value</small> </td>#}
+{#        <td>{{ dash.position_total.count_total }}</td>#}
+{#    </tr>#}
+</table>

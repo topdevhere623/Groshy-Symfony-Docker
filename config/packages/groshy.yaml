@@ -1,0 +1,91 @@
+groshy:
+  resources:
+    tag_group:
+      classes:
+        model: Groshy\Entity\TagGroup
+    tag:
+      classes:
+        model: Groshy\Entity\Tag
+    sponsor:
+      classes:
+        model: Groshy\Entity\Sponsor
+    asset:
+      classes:
+        model: Groshy\Entity\Asset
+    asset_investment:
+      classes:
+        model: Groshy\Entity\AssetInvestment
+    asset_cash:
+      classes:
+        model: Groshy\Entity\AssetCash
+    asset_credit_card:
+      classes:
+        model: Groshy\Entity\AssetCreditCard
+    asset_type:
+      classes:
+        model: Groshy\Entity\AssetType
+        repository: Groshy\Repository\AssetTypeRepository
+    position:
+      classes:
+        model: Groshy\Entity\Position
+        repository: Groshy\Repository\PositionRepository
+    position_cash:
+      classes:
+        model: Groshy\Entity\PositionCash
+    position_investment:
+      classes:
+        model: Groshy\Entity\PositionInvestment
+    position_credit_card:
+      classes:
+        model: Groshy\Entity\PositionCreditCard
+    position_value:
+      classes:
+        model: Groshy\Entity\PositionValue
+        repository: Groshy\Repository\PositionValueRepository
+        manager: Groshy\Manager\PositionValueManager
+    transaction:
+      classes:
+        model: Groshy\Entity\Transaction
+        repository: Groshy\Repository\TransactionRepository
+    institution:
+      classes:
+        model: Groshy\Entity\Institution
+  assets:
+    configs:
+      private_equity:
+        type_right_panel_template: 'custom/type/private-equity/right-panel.html.twig'
+        type_positions_template: 'custom/type/private-equity/positions.html.twig'
+        position_right_panel_template: 'custom/position/private-equity/right-panel.html.twig'
+        asset_class: Groshy\Entity\AssetInvestment
+        position_class: Groshy\Entity\PositionInvestment
+      cash:
+        type_right_panel_template: 'custom/type/cash/right-panel.html.twig'
+        type_positions_template: 'custom/type/cash/positions.html.twig'
+        position_right_panel_template: 'custom/position/cash/right-panel.html.twig'
+        asset_class: Groshy\Entity\AssetCash
+        position_class: Groshy\Entity\PositionCash
+      credit_card:
+        type_right_panel_template: 'custom/type/credit-card/right-panel.html.twig'
+        type_positions_template: 'custom/type/credit-card/positions.html.twig'
+        position_right_panel_template: 'custom/position/credit-card/right-panel.html.twig'
+        asset_class: Groshy\Entity\AssetCreditCard
+        position_class: Groshy\Entity\PositionCreditCard
+    types:
+      real-estate: private_equity
+      hard-money-loan-fund: private_equity
+      real-estate-lp-fund: private_equity
+      real-estate-gp-fund: private_equity
+      public-non-traded-reit: private_equity
+      private-equity: private_equity
+      private-equity-gp-fund: private_equity
+      private-equity-lp-fund: private_equity
+      venture-capital: private_equity
+      search-fund: private_equity
+      secondaries: private_equity
+      alternative-investment: private_equity
+      litigation-financing: private_equity
+      music-royalties: private_equity
+      life-insurance-settlements: private_equity
+      private-credit: private_equity
+      credit-card: credit_card
+      cash: cash
